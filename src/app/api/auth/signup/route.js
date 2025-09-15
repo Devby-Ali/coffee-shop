@@ -8,7 +8,7 @@ export async function POST(req) {
   const body = await req.json();
   const { name, phone, email, password } = body;
 
-  // Validation
+  // Validation (You)
 
   const isUserExist = await UserModel.findOne({
     $or: [{ name }, { email }, { phone }],

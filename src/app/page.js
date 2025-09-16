@@ -11,7 +11,7 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar isLogin={user} />
+      <Navbar isLogin={user ? true : false} />
       <Banner />
       <Latest />
       <Promote />

@@ -4,6 +4,8 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { CiSearch, CiHeart } from "react-icons/ci";
 
 const Card = ({ name, price }) => {
+  console.log("Product Name ->", name);
+  console.log("Product Price ->", price);
   return (
     <div className={styles.card}>
       <div className={styles.details_container}>
@@ -33,7 +35,7 @@ const Card = ({ name, price }) => {
           <FaRegStar />
           <FaRegStar />
         </div>
-        <span>{price.toLocaleString()} تومان</span>
+        <span>{price?.toLocaleString()} تومان</span>
       </div>
     </div>
   );

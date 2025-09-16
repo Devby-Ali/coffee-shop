@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
-const MoreProducts = () => {
+const MoreProducts = ({ relatedProducts }) => {
   return (
     <div data-aos="fade-right">
       <section>
@@ -28,30 +28,11 @@ const MoreProducts = () => {
         modules={[Navigation]}
         className="mySwiper "
       >
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
+        {relatedProducts.map((product) => (
+          <SwiperSlide key={product._id}>
+            <Product {...product} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

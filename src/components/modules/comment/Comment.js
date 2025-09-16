@@ -1,7 +1,7 @@
 import { FaRegStar, FaStar } from "react-icons/fa";
 
 import styles from "./comment.module.css";
-const Comment = ({ username, body, email, score }) => {
+const Comment = ({ username, body, score, date }) => {
   return (
     <section className={styles.comment}>
       <img src="/images/shahin.jpg" className={styles.avatar} alt="" />
@@ -9,7 +9,7 @@ const Comment = ({ username, body, email, score }) => {
         <div className={styles.main_details}>
           <div className={styles.user_info}>
             <strong>{username}</strong>
-            <p>۲۸ آذر ۱۴۰۱</p>
+            <p>{new Date(date).toLocaleDateString("fa-IR")}</p>
           </div>
           <div className={styles.stars}>
             {new Array(score).fill(0).map((item, index) => (

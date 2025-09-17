@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./ticket.module.css";
 
-const Ticket = ({ _id, title, department, hasAnswer, createdAt }) => {
+const Ticket = ({ _id, title, createdAt, department, hasAnswer }) => {
   return (
     <Link href={`/p-user/tickets/answer/${_id}`} className={styles.ticket}>
       <div>

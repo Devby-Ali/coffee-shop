@@ -5,13 +5,14 @@ import { ImReply } from "react-icons/im";
 import { FaComments, FaHeart, FaShoppingBag, FaUsers } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { MdSms, MdLogout } from "react-icons/md";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { TbListDetails } from "react-icons/tb";
 import Link from "next/link";
 import swal from "sweetalert";
 
 const Sidebar = () => {
   const path = usePathname();
+  const router = useRouter();
 
   const logoutHandler = () => {
     swal({
@@ -30,7 +31,8 @@ const Sidebar = () => {
             icon: "success",
             buttons: "فهمیدم",
           }).then((result) => {
-            location.replace("/");
+            // location.replace("/");
+            router.replace("/");
           });
         }
       }

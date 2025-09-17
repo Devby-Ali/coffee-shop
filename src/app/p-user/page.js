@@ -1,6 +1,6 @@
 import Layout from "@/components/layouts/UserPanelLayout";
 import styles from "@/styles/p-user/index.module.css";
-import Box from "@/components/templates/p-user/index/Box";
+import Box from "@/components/modules/infoBox/InfoBox";
 import Tickets from "@/components/templates/p-user/index/Tickets";
 import Orders from "@/components/templates/p-user/index/Orders";
 import { authUser } from "@/utils/serverHelpers";

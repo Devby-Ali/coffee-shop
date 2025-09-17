@@ -18,8 +18,22 @@ const Sidebar = () => {
       title: "آیا از خروج اطمینان دارید؟",
       icon: "warning",
       buttons: ["نه", "آره"],
-    }).then((result) => {
-      //code
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/auth/signout", {
+          method: "POST",
+        });
+
+        if (res.status === 200) {
+          swal({
+            title: "با موفقیت از اکانت خارج شدین",
+            icon: "success",
+            buttons: "فهمیدم",
+          }).then((result) => {
+            location.replace("/");
+          });
+        }
+      }
     });
   };
   return (

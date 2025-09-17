@@ -23,7 +23,3 @@ export async function POST(req) {
     return Response.json({ message: err }, { status: 500 });
   }
 }
-
-export async function DELETE(req) {
-  // Codes
-}

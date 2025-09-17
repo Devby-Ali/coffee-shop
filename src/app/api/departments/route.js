@@ -19,3 +19,9 @@ export async function POST(req) {
     return Response.json({ message: err }, { status: 500 });
   }
 }
+
+export async function GET() {
+  connectToDB();
+  const departments = await DepartmentModel.find({});
+  return Response.json(departments);
+}

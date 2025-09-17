@@ -21,7 +21,14 @@ const page = async () => {
         </h1>
         <div className={styles.container}>
           {wishlist.length &&
-            wishlist.map((wish) => <Product key={wish._id} {...wish} />)}
+            wishlist.map((wish) => (
+              <Product
+                key={wish._id}
+                name={wish.product.name}
+                price={wish.product.price}
+                score={wish.product.score}
+              />
+            ))}
         </div>
 
         {wishlist.length === 0 && (

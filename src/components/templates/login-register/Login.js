@@ -13,7 +13,6 @@ const Login = ({ showRegisterForm }) => {
   const hideOtpForm = () => setIsLoginWithOtp(false);
 
   const loginWithPassword = async () => {
-    console.log(phoneOrEmail);
     if (!phoneOrEmail) {
       return showSwal("لطفا شماره تماس یا ایمیل را وارد کنید", "error", "چشم");
     }

@@ -62,7 +62,6 @@ export async function POST(req) {
       }
     );
   } catch (err) {
-    console.log("Err ->", err);
     return Response.json(
       { message: err },
       {

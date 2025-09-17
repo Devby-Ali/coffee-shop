@@ -9,7 +9,11 @@ export async function POST(req) {
 
     // Validation (You)
 
-    await WishlistModel.create({ user, product });
+    const wish = await WishlistModel.findOne({ user, product });
+
+    if (!wish) {
+      await WishlistModel.create({ user, product });
+    }
 
     return Response.json(
       { message: "Product added to wishlist successfully :))" },

@@ -4,7 +4,7 @@ import Navbar from "@/components/modules/navbar/Navbar";
 import Product from "@/components/modules/product/Product";
 import connectToDB from "@/configs/db";
 import styles from "@/styles/wishlist.module.css";
-import { authUser } from "@/utils/auth";
+import { authUser } from "@/utils/serverHelpers";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import WishlistModel from "@/models/Wishlist";

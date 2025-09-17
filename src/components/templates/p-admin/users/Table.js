@@ -1,6 +1,21 @@
+"use client";
 import React from "react";
 import styles from "./table.module.css";
 export default function DataTable({ users, title }) {
+  const changeRole = async (userID) => {
+    // Validation (You)
+
+    const res = await fetch("/api/user/role", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: userID }),
+    });
+
+    console.log(res);
+  };
+
   return (
     <div>
       <div>
@@ -35,7 +50,11 @@ export default function DataTable({ users, title }) {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className={styles.edit_btn}>
+                  <button
+                    type="button"
+                    className={styles.edit_btn}
+                    onClick={() => changeRole(user._id)}
+                  >
                     تغییر نقش
                   </button>
                 </td>

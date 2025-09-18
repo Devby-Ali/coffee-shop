@@ -11,6 +11,46 @@ export default function DataTable({ comments, title }) {
     showSwal(body, undefined, "خوندم");
   };
 
+  const acceptComment = async (commentID) => {
+    const res = await fetch("/api/comments/accept", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: commentID }),
+    });
+
+    if (res.status === 200) {
+      swal({
+        title: "کامنت مورد نظر با موفقیت تایید شد",
+        icon: "success",
+        buttons: "فهمیدم",
+      }).then(() => {
+        router.refresh();
+      });
+    }
+  };
+
+  const rejectComment = async (commentID) => {
+    const res = await fetch("/api/comments/reject", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: commentID }),
+    });
+
+    if (res.status === 200) {
+      swal({
+        title: "کامنت مورد نظر با موفقیت رد شد",
+        icon: "success",
+        buttons: "فهمیدم",
+      }).then(() => {
+        router.refresh();
+      });
+    }
+  };
+
   return (
     <div>
       <div>
@@ -31,7 +71,7 @@ export default function DataTable({ comments, title }) {
               <th>مشاهده</th>
               <th>ویرایش</th>
               <th>حذف</th>
-              <th>تایید</th>
+              <th>تایید / رد</th>
               <th>پاسخ</th>
               <th>بن</th>
             </tr>
@@ -39,7 +79,11 @@ export default function DataTable({ comments, title }) {
           <tbody>
             {comments.map((comment, index) => (
               <tr key={comment._id}>
-                <td>{index + 1}</td>
+                <td
+                  className={comment.isAccept ? styles.accept : styles.reject}
+                >
+                  {index + 1}
+                </td>
                 <td>{comment.username}</td>
                 <td>{comment.email}</td>
                 <td>{comment.score}</td>
@@ -65,9 +109,23 @@ export default function DataTable({ comments, title }) {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className={styles.delete_btn}>
-                    تایید
-                  </button>
+                  {comment.isAccept ? (
+                    <button
+                      type="button"
+                      className={styles.delete_btn}
+                      onClick={() => rejectComment(comment._id)}
+                    >
+                      رد
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className={styles.delete_btn}
+                      onClick={() => acceptComment(comment._id)}
+                    >
+                      تایید
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button type="button" className={styles.delete_btn}>

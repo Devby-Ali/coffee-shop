@@ -18,7 +18,7 @@ const schema = new mongoose.Schema(
     uses: {
       // 1
       type: Number,
-      required: true,
+      default: 0,
     },
   },
   {

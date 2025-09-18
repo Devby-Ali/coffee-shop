@@ -1,7 +1,11 @@
 "use client";
 import React from "react";
 import styles from "./table.module.css";
+import swal from "sweetalert";
+import { useRouter } from "next/navigation";
 export default function DataTable({ users, title }) {
+  const router = useRouter();
+
   const changeRole = async (userID) => {
     // Validation (You)
 
@@ -12,8 +16,46 @@ export default function DataTable({ users, title }) {
       },
       body: JSON.stringify({ id: userID }),
     });
+    if (res.status === 200) {
+      swal({
+        title: "نقش کاربر با موفقیت تغییر یافت",
+        icon: "success",
+        buttons: "فهمیدم",
+      }).then(() => {
+        router.refresh();
+      });
+    }
+  };
 
-    console.log(res);
+  const removeUser = async (userID) => {
+    // Confirm ✅
+    // Validation (You) ✅
+
+    swal({
+      title: "آیا از حذف کاربر اطمینان دارین؟",
+      icon: "warning",
+      buttons: ["نه", "آره"],
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/user", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id: userID }),
+        });
+
+        if (res.status === 200) {
+          swal({
+            title: "کاربر مورد نظر با موفقیت حذف شد",
+            icon: "success",
+            buttons: "فهمیدم",
+          }).then(() => {
+            router.refresh();
+          });
+        }
+      }
+    });
   };
 
   return (
@@ -59,7 +101,11 @@ export default function DataTable({ users, title }) {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className={styles.delete_btn}>
+                  <button
+                    type="button"
+                    className={styles.delete_btn}
+                    onClick={() => removeUser(user._id)}
+                  >
                     حذف
                   </button>
                 </td>

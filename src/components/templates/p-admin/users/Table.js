@@ -58,6 +58,37 @@ export default function DataTable({ users, title }) {
     });
   };
 
+  const banUser = async (email, phone) => {
+    // Confirm ✅
+    // Validation (You) ✅
+
+    swal({
+      title: "آیا از بن کاربر اطمینان دارین؟",
+      icon: "warning",
+      buttons: ["نه", "آره"],
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/user/ban", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, phone }),
+        });
+
+        if (res.status === 200) {
+          swal({
+            title: "کاربر مورد نظر با موفقیت بن شد",
+            icon: "success",
+            buttons: "فهمیدم",
+          }).then(() => {
+            router.refresh();
+          });
+        }
+      }
+    });
+  };
+
   return (
     <div>
       <div>
@@ -110,7 +141,11 @@ export default function DataTable({ users, title }) {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className={styles.delete_btn}>
+                  <button
+                    type="button"
+                    onClick={() => banUser(user.email, user.phone)}
+                    className={styles.delete_btn}
+                  >
                     بن
                   </button>
                 </td>

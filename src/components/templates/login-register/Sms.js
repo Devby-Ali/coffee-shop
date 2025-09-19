@@ -1,6 +1,6 @@
 import styles from "./sms.module.css";
 
-const Sms = ({ hideOtpForm }) => {
+const Sms = ({ hideOtpForm, phone }) => {
   return (
     <>
       <div className={styles.form}>
@@ -8,7 +8,7 @@ const Sms = ({ hideOtpForm }) => {
         <span className={styles.code_title}>
           لطفاً کد تأیید ارسال شده را تایپ کنید
         </span>
-        <span className={styles.number}>09921558293</span>
+        <span className={styles.number}>{phone}</span>
         <input className={styles.input} type="text" />
         <button style={{ marginTop: "1rem" }} className={styles.btn}>
           ثبت کد تایید

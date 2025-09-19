@@ -6,11 +6,13 @@ import { IoMdClose } from "react-icons/io";
 import { useEffect, useState } from "react";
 import stateData from "@/utils/stateData";
 import Select from "react-select";
+import { showSwal } from "@/utils/helpers";
 
 const stateOptions = stateData();
 
 const Table = () => {
   const [cart, setCart] = useState([]);
+  const [discount, setDiscount] = useState("");
   const [stateSelectedOption, setStateSelectedOption] = useState(null);
   const [changeAddress, setChangeAddress] = useState(false);
 
@@ -30,6 +32,28 @@ const Table = () => {
     }
 
     return totalPrice;
+  };
+
+  const checkDiscount = async () => {
+    // Validation (You) ✅
+
+    const res = await fetch("api/discounts/use", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code: discount }),
+    });
+
+    console.log("Response ->", res);
+
+    if (res.status === 404) {
+      return showSwal("کد تخفیف وارد شده معتبر نیست", "error", "تلاش مجدد");
+    } else if (res.status === 422) {
+      return showSwal("کد تخفیف وارد شده منقضی شده", "error", "تلاش مجدد");
+    } else if (res.status === 200) {
+      return showSwal("کد تخفیف با موفقیت اعمال شد", "success", "فهمیدم");
+    }
   };
 
   return (
@@ -78,8 +102,15 @@ const Table = () => {
         <section>
           <button className={styles.update_btn}> بروزرسانی سبد خرید</button>
           <div>
-            <button className={styles.set_off_btn}>اعمال کوپن</button>
-            <input type="text" placeholder="کد تخفیف" />
+            <button className={styles.set_off_btn} onClick={checkDiscount}>
+              اعمال کوپن
+            </button>
+            <input
+              type="text"
+              value={discount}
+              onChange={(event) => setDiscount(event.target.value)}
+              placeholder="کد تخفیف"
+            />
           </div>
         </section>
       </div>

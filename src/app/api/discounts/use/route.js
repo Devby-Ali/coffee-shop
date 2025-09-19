@@ -10,6 +10,14 @@ export async function PUT(req) {
     // Validation (You) ✅
 
     const discount = await DiscountModel.findOne({ code });
+    await DiscountModel.findOneAndUpdate(
+      { code },
+      {
+        $inc: {
+          uses: 1,
+        },
+      }
+    );
 
     if (!discount) {
       return Response.json({ message: "Code not found !!" }, { status: 404 });

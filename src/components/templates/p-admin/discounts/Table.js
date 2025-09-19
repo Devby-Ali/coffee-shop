@@ -17,7 +17,13 @@ function Table({ discounts }) {
       <tbody>
         {discounts.map((discount, index) => (
           <tr key={discount._id}>
-            <td>{index + 1}</td>
+            <td
+              className={
+                discount.uses === discount.maxUse ? styles.red : styles.green
+              }
+            >
+              {index + 1}
+            </td>
             <td>{discount.code}</td>
             <td>{discount.percent}</td>
             <td>{discount.maxUse}</td>

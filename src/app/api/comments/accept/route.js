@@ -1,8 +1,15 @@
 import connectToDB from "@/configs/db";
 import CommentModel from "@/models/Comment";
+import { authAdmin } from "@/utils/serverHelpers";
 
 export async function PUT(req) {
   try {
+    const isAdmin = await authAdmin();
+
+    if (!isAdmin) {
+      throw new Error("This api protected and you can't access it !!");
+    }
+
     connectToDB();
     const body = await req.json();
     const { id } = body;
@@ -18,6 +25,6 @@ export async function PUT(req) {
     );
     return Response.json({ message: "Comment accepted successfully :))" });
   } catch (err) {
-    return Response.json({ message: err }, { status: 500 });
+    return Response.json({ message: err.message }, { status: 500 });
   }
 }

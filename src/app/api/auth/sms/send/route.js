@@ -1,6 +1,7 @@
 const request = require("request");
 import connectToDB from "@/configs/db";
 import OtpModel from "@/models/Otp";
+import UserModel from "@/models/User";
 
 export async function POST(req) {
   connectToDB();
@@ -11,6 +12,21 @@ export async function POST(req) {
   const expTime = now.getTime() + 300_000; // 5 Mins
 
   const code = Math.floor(Math.random() * 99999);
+
+  const isUserExist = await UserModel.findOne({
+    $or: [{ phone }],
+  });
+
+  if (isUserExist) {
+    return Response.json(
+      {
+        message: "The username or email or phone exist already !!",
+      },
+      {
+        status: 422,
+      }
+    );
+  }
 
   request.post(
     {

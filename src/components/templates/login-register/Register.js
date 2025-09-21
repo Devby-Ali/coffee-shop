@@ -76,6 +76,14 @@ const Register = ({ showloginForm }) => {
       }).then(() => {
         setIsRegisterWithOtp(true);
       });
+    } else if (res.status === 422) {
+      swal({
+        title: "این شماره تماس قبلا ثبت نام شده",
+        icon: "error",
+        buttons: "لاگین می‌کنم",
+      }).then(() => {
+        showloginForm();
+      });
     }
   };
 

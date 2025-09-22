@@ -7,17 +7,22 @@ import path from "path";
 export async function POST(req) {
   try {
     connectToDB();
-    const body = await req.json();
-    const {
-      name,
-      price,
-      shortDescription,
-      longDescription,
-      weight,
-      suitableFor,
-      smell,
-      tags,
-    } = body;
+    const formData = await req.formData();
+    const name = formData.get("name");
+    const price = formData.get("price");
+    const shortDescription = formData.get("shortDescription");
+    const longDescription = formData.get("longDescription");
+    const weight = formData.get("weight");
+    const suitableFor = formData.get("suitableFor");
+    const smell = formData.get("smell");
+    const tags = JSON.parse(formData.get("tags"));
+    const img = formData.get("img");
+
+    const buffer = Buffer.from(await img.arrayBuffer());
+    const filename = Date.now() + img.name;
+    const imgPath = path.join(process.cwd(), "public/uploads/" + filename);
+
+    await writeFile(imgPath, buffer);
 
     const product = await ProductModel.create({
       name,
@@ -28,6 +33,7 @@ export async function POST(req) {
       suitableFor,
       smell,
       tags,
+      img: `http://localhost:3000/uploads/${filename}`,
     });
 
     return Response.json(

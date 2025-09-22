@@ -15,7 +15,7 @@ export async function POST(req) {
     const weight = formData.get("weight");
     const suitableFor = formData.get("suitableFor");
     const smell = formData.get("smell");
-    const tags = JSON.parse(formData.get("tags"));
+    const tags = formData.get("tags");
     const img = formData.get("img");
 
     const buffer = Buffer.from(await img.arrayBuffer());

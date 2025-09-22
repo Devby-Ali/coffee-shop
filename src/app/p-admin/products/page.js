@@ -4,6 +4,7 @@ import styles from "@/components/templates/p-admin/products/table.module.css";
 import Table from "@/components/templates/p-admin/products/Table";
 import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
+import AddProduct from "@/components/templates/p-admin/products/AddProduct";
 
 const page = async () => {
   connectToDB();
@@ -12,6 +13,8 @@ const page = async () => {
   return (
     <Layout>
       <main>
+        <AddProduct />
+
         {products.length === 0 ? (
           <p className={styles.empty}>محصولی وجود ندارد</p>
         ) : (
